@@ -22,6 +22,12 @@ Writes PRDs in Operator's house style: milestone-based structure with a "Definit
 
 See [skills/prd/SKILL.md](skills/prd/SKILL.md).
 
+### migration-safety-brakes
+
+Hard guardrails for Liquibase migrations under `db/changelog/`. It refuses unsafe changeset work rather than helping perform it: no reading `src/main/resources/**` config or secrets, no operating outside the repo, no shelling out to apply migrations against a live DB, no editing changesets that already ran in production, no unguarded column/table drops or in-place type changes, no fake rollback blocks. Additive changesets (new tables, nullable columns, indexes) are still allowed.
+
+See [skills/migration-safety-brakes/SKILL.md](skills/migration-safety-brakes/SKILL.md).
+
 ## Install
 
 Point Claude Code at this directory as a skills source, or copy a skill folder into `~/.claude/skills/`:
