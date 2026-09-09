@@ -28,6 +28,30 @@ Hard guardrails for Liquibase migrations under `db/changelog/`. It refuses unsaf
 
 See [skills/migration-safety-brakes/SKILL.md](skills/migration-safety-brakes/SKILL.md).
 
+### refactor
+
+Behavior-preserving refactor plus a code-style pass on the current change target: uncommitted changes, or the last commit if the working tree is clean. Scope is the delta only. Detects the mybookingpal project (mbp, core-module, dataaccesslayer, admin-portal, revpal, supplier-api), uses IntelliJ MCP for inspections and formatting, then compiles and runs the affected tests to confirm nothing changed.
+
+See [skills/refactor/SKILL.md](skills/refactor/SKILL.md).
+
+### junit
+
+Writes JUnit tests for the same uncommitted / last-commit delta. Reuses the `generate-unit-tests` project profiles (test roots, frameworks, mock libraries, single-test commands) and swaps only the change-set rule.
+
+See [skills/junit/SKILL.md](skills/junit/SKILL.md).
+
+### commit
+
+Stages the current changes and commits with a handbook message: `<TICKET> <imperative summary>`, ticket taken from the branch name, optional why-body. No Claude attribution. Refuses to commit on `master`, `main`, `demo-dev`, or `demo-stable`. Does not push.
+
+See [skills/commit/SKILL.md](skills/commit/SKILL.md).
+
+### pr
+
+End-to-end pre-PR pass for a working branch: run `refactor`, run `junit`, get the module build green (`mvn -o test`), save a session summary, commit with a clean message, push, then print a filled PR description and the Bitbucket create-PR link. Does not open the PR. Stops before push on a protected branch or an unexplained red build.
+
+See [skills/pr/SKILL.md](skills/pr/SKILL.md).
+
 ## Install
 
 Point Claude Code at this directory as a skills source, or copy a skill folder into `~/.claude/skills/`:
