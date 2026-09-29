@@ -52,6 +52,12 @@ End-to-end pre-PR pass for a working branch: run `refactor`, run `junit`, get th
 
 See [skills/pr/SKILL.md](skills/pr/SKILL.md).
 
+### session-summary
+
+Saves the session to an Obsidian vault as two linked notes: a dry technical extract and a rich summary with a mermaid diagram. Tags and key phrases feed a searchable `Keywords.md` index, a daily log row is written, and the session gets a `/rename` slug. Re-running in the same session updates the notes in place. Ships `scripts/save_session.sh`, which the skill expects at `~/.claude/scripts/`; the vault path is set at the top of the script and can be overridden with `VAULT`.
+
+See [skills/session-summary/SKILL.md](skills/session-summary/SKILL.md).
+
 ## Install
 
 Point Claude Code at this directory as a skills source, or copy a skill folder into `~/.claude/skills/`:
