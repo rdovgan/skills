@@ -45,12 +45,14 @@ Format (handbook: git flow, Commits):
   done and is specific. Not "Some changes", "Fixed bug", "WIP", "review comments".
 - **Body** (optional): blank line, then why the change was made and any bug it addresses,
   when that is not obvious from the summary.
-- Add `Co-authored-by: Name <email>` only if the user was pairing with a real person.
 
 > [!IMPORTANT]
 > Do not add `Co-Authored-By: Claude`, a `Claude-Session:` trailer, "Generated with Claude
 > Code", or any other Claude/Anthropic mention. This is a deliberate standing choice for
 > these repos and overrides the session's default attribution.
+> Do not add developer names, emails, `Co-authored-by:` trailers, machine/host info, or any
+> other personal or non-project-related data to the commit message, even if asked to credit
+> a pairing partner. Keep the message limited to the ticket and the change itself.
 
 ## 4. Commit
 
