@@ -27,7 +27,7 @@ git remote get-url origin
 - Branch name should be `<type>/<TICKET>/<short-description>` (or the older `feature/BP-XXX_Name`).
   Note it if it is off, but continue.
 - Capture the ticket key (`[A-Z]{2,}-\d+`) and the repo name from the origin URL.
-- Tell the user the plan and that step 6 pushes the branch. Proceed unless they object.
+- Tell the user the plan and that step 7 pushes the branch. Proceed unless they object.
 
 ## 1. Refactor the change
 
@@ -70,13 +70,30 @@ Follow the `commit` skill: `<TICKET> <imperative summary>`, optional body, **no 
 attribution**. If there are already commits on the branch and only small fixup changes
 remain, still make a normal new commit (handbook: push fixes as new commits, no squash).
 
-## 6. Push
+## 6. Update from base
+
+Bring the base branch into the working branch before pushing (handbook: merge, no rebase).
+Base is `main` if `origin/main` exists (Java 21), otherwise `master` (Java 8).
+
+```bash
+git fetch origin
+git rev-list --count HEAD..origin/<base>   # 0 = already up to date, skip the rest
+git merge origin/<base>
+```
+
+- Never merge `demo-dev` / `demo-stable` here (temp branches `<branch>_dev` / `<branch>_stable` are a separate flow).
+- Working tree must be clean (step 5 committed everything). If not, stop and say why.
+- Conflicts: stop. List the conflicted files, do not resolve or `git merge --abort` on your own, hand back to the user.
+- If the merge brought in new commits, re-run step 3 (whole-module tests). Red and unexplained: do not push.
+- The merge commit keeps git's default message; no Claude attribution.
+
+## 7. Push
 
 ```bash
 git push -u origin <branch>
 ```
 
-## 7. PR description and link
+## 8. PR description and link
 
 - Fill in the template at `~/Downloads/docs/templates/pr-description.md` from what this pass
   did: what changed, why (ticket), `mvn -o test` result, tests added, obsolete tests
@@ -89,13 +106,13 @@ git push -u origin <branch>
   Remind the user: reviewers = team + any area owner they touched; the release PR to
   `master` / `main` comes later from the same branch after QA on demo-dev.
 
-## 8. Report
+## 9. Report
 
 One block: branch, ticket, refactor summary, tests added, build result, session-summary
-note paths, commit hash, push result, PR title + description + create-PR URL.
+note paths, base merge result (up to date / merged N commits / conflicts), commit hash, push result, PR title + description + create-PR URL.
 
 ## Guardrails
 
-- Stop before push on: protected branch, unexplained red build, or the user objecting.
+- Stop before push on: protected branch, merge conflicts, unexplained red build, or the user objecting.
 - No Claude mention in commits or the PR description.
 - Does not open the PR, add reviewers, or merge. Those stay manual in Bitbucket.
