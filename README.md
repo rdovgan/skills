@@ -18,7 +18,7 @@ See [skills/consolidate/SKILL.md](skills/consolidate/SKILL.md).
 
 ### prd
 
-Writes PRDs in Operator's house style: milestone-based structure with a "Definition of done" acceptance line and post-milestone "Update" log per milestone, a "Pre-PRD action items" gate, linked ADRs, a runtime-vs-operator responsibilities split, and lean PRDs that split into siblings before they sprawl. Ships `scripts/new-prd.js` and `scripts/bootstrap-prd.js` plus templates and reference conventions. Vendored from [Yuripetusko/skills](https://github.com/Yuripetusko/skills/tree/main/skills/prd).
+Writes PRDs in Operator's house style: milestone-based structure with a "Definition of done" acceptance line and post-milestone "Update" log per milestone, a "Pre-PRD action items" gate, linked ADRs, a runtime-vs-operator responsibilities split, and lean PRDs that split into siblings before they sprawl. Ships `scripts/new-prd.js` and `scripts/bootstrap-prd.js` plus templates and reference conventions.
 
 See [skills/prd/SKILL.md](skills/prd/SKILL.md).
 
